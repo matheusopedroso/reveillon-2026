@@ -287,7 +287,134 @@
   .rec.sage p strong{color:var(--sage);}
   .rec.terr p strong{color:var(--terracotta);}
 
-  /* ---------- FOOTER ---------- */
+  /* ---------- TABS ---------- */
+  .tabs{
+    position:sticky;
+    top:0;
+    z-index:10;
+    display:flex;
+    background:var(--night);
+    border-bottom:1px solid var(--line);
+    margin-bottom:8px;
+  }
+  .tab-btn{
+    flex:1;
+    background:none;
+    border:none;
+    color:var(--slate);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:16px 8px;
+    cursor:pointer;
+    border-bottom:2px solid transparent;
+    transition:color 0.15s ease, border-color 0.15s ease;
+  }
+  .tab-btn.active{color:var(--gold-soft); border-bottom-color:var(--gold);}
+  .tab-panel{display:none;}
+  .tab-panel.active{display:block;}
+
+  /* ---------- VOTE CARDS ---------- */
+  .vote-card{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    background:var(--night-2);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:14px 16px;
+    margin-bottom:12px;
+  }
+  .vote-card .vc-name{font-family:'Fraunces', serif; font-weight:600; font-size:16px; color:var(--cream);}
+  .vote-card .vc-place{font-size:12.5px; color:var(--slate); margin-top:2px;}
+  .vote-bar-wrap{height:5px; background:rgba(243,234,216,0.08); border-radius:4px; margin-top:8px; overflow:hidden; width:100%;}
+  .vote-bar{height:100%; background:linear-gradient(90deg, var(--gold), var(--terracotta)); border-radius:4px; transition:width 0.3s ease;}
+  .vote-right{display:flex; flex-direction:column; align-items:center; gap:6px; flex-shrink:0;}
+  .vote-count{font-family:'JetBrains Mono', monospace; font-size:18px; font-weight:700; color:var(--gold-soft);}
+  .vote-btn{
+    background:var(--gold);
+    color:var(--night);
+    border:none;
+    border-radius:20px;
+    padding:8px 16px;
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    font-size:12.5px;
+    cursor:pointer;
+    transition:opacity 0.15s ease;
+  }
+  .vote-btn:hover{opacity:0.85;}
+  .vote-btn.voted{background:var(--sage); color:var(--night);}
+  .voter-input{
+    width:100%;
+    background:var(--night-2);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:12px 14px;
+    color:var(--cream);
+    font-family:'Inter', sans-serif;
+    font-size:14px;
+    margin-bottom:20px;
+  }
+  .voter-input::placeholder{color:var(--slate);}
+  .voter-input:focus{outline:none; border-color:var(--gold);}
+
+  /* ---------- SHOPPING LIST ---------- */
+  .shop-add{display:flex; gap:8px; margin-bottom:20px;}
+  .shop-add input{
+    flex:1;
+    background:var(--night-2);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:12px 14px;
+    color:var(--cream);
+    font-family:'Inter', sans-serif;
+    font-size:14px;
+  }
+  .shop-add input::placeholder{color:var(--slate);}
+  .shop-add input:focus{outline:none; border-color:var(--gold);}
+  .shop-add button{
+    background:var(--gold);
+    color:var(--night);
+    border:none;
+    border-radius:10px;
+    padding:0 20px;
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    font-size:14px;
+    cursor:pointer;
+  }
+  .shop-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    background:var(--night-2);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:12px 14px;
+    margin-bottom:8px;
+  }
+  .shop-check{
+    width:20px; height:20px;
+    border-radius:50%;
+    border:1.5px solid var(--slate);
+    flex-shrink:0;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:transparent;
+  }
+  .shop-check.done{background:var(--sage); border-color:var(--sage);}
+  .shop-check.done::after{content:"✓"; color:var(--night); font-size:12px; font-weight:700;}
+  .shop-text{flex:1; font-size:14.5px; color:var(--cream);}
+  .shop-text.done{color:var(--slate); text-decoration:line-through;}
+  .shop-by{font-size:10.5px; color:var(--slate); font-family:'JetBrains Mono', monospace;}
+  .shop-del{background:none; border:none; color:var(--slate); cursor:pointer; font-size:16px; padding:4px 8px;}
+  .shop-del:hover{color:var(--terracotta);}
+  .empty-state{color:var(--slate); font-size:13.5px; text-align:center; padding:30px 0;}
   footer{
     margin-top:50px;
     padding-top:24px;
@@ -327,7 +454,15 @@
   </div>
 </div>
 
+<nav class="tabs">
+  <button class="tab-btn active" data-tab="comparativo">Comparativo</button>
+  <button class="tab-btn" data-tab="votacao">Votação</button>
+  <button class="tab-btn" data-tab="compras">Lista de compras</button>
+</nav>
+
 <div class="wrap">
+
+<div id="tab-comparativo" class="tab-panel active">
 
   <section>
     <div class="sec-head"><span class="sec-num">01</span><h2>As 7 opções</h2></div>
@@ -577,9 +712,215 @@
     </div>
   </section>
 
+</div><!-- /tab-comparativo -->
+
+<div id="tab-votacao" class="tab-panel">
+  <section style="padding-top:32px;">
+    <div class="sec-head"><span class="sec-num">★</span><h2>Vote na sua casa favorita</h2></div>
+    <p class="sec-note">Digite seu nome, escolha uma casa e clique em votar. O placar atualiza pra todo mundo em tempo real.</p>
+    <input type="text" id="voterName" class="voter-input" placeholder="Seu nome" autocomplete="off">
+    <div id="voteList"></div>
+  </section>
+</div>
+
+<div id="tab-compras" class="tab-panel">
+  <section style="padding-top:32px;">
+    <div class="sec-head"><span class="sec-num">🛒</span><h2>Lista de compras</h2></div>
+    <p class="sec-note">Adicione o que falta comprar. Marque como feito quando comprar, qualquer um pode editar.</p>
+    <div class="shop-add">
+      <input type="text" id="shopInput" placeholder="Ex: carvão, gelo, refrigerante..." autocomplete="off">
+      <button id="shopAddBtn">Adicionar</button>
+    </div>
+    <div id="shopList"></div>
+  </section>
+</div>
+
   <footer>Planejamento Réveillon 2026/2027 · Grupo de 10 pessoas · Origem Belo Horizonte · 9 opções de hospedagem</footer>
 
-</div>
+</div><!-- /wrap -->
+
+<script type="module">
+  // ============================================================
+  // 1) COLE AQUI O firebaseConfig QUE VOCÊ PEGOU NO CONSOLE
+  // ============================================================
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import {
+    getFirestore, collection, doc, setDoc, deleteDoc,
+    onSnapshot, serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCHHsD2SZNmPvIAqGKR1pY3t3f64So17NM",
+    authDomain: "new-year-bd023.firebaseapp.com",
+    projectId: "new-year-bd023",
+    storageBucket: "new-year-bd023.firebasestorage.app",
+    messagingSenderId: "1069080751297",
+    appId: "1:1069080751297:web:2ca6a059e7d52e6d827840"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // ============================================================
+  // TABS
+  // ============================================================
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // ============================================================
+  // VOTAÇÃO
+  // ============================================================
+  const HOUSES = [
+    { id: "06", name: "Chácara Amore", place: "São Sebastião do Oeste" },
+    { id: "04", name: "Sítio Caninha Mineira", place: "Itatiaiuçu" },
+    { id: "01", name: "Casa à Beira do Lago", place: "Praia de Roseira" },
+    { id: "05", name: "Recanto Ubuntu", place: "Rio Manso" },
+    { id: "07", name: "Ranchinho Três Marias", place: "Três Marias" },
+    { id: "08", name: "Casa na Montanha", place: "Itaguara" },
+    { id: "02", name: "Veredas Tropical", place: "Cláudio" },
+    { id: "09", name: "Sítio de Luxo", place: "Cláudio" },
+    { id: "03", name: "Cajurucasa", place: "Carmo do Cajuru" }
+  ];
+
+  // ID local pra saber se ESTE navegador já votou (e em qual casa)
+  function getDeviceId() {
+    let id = localStorage.getItem('reveillon_device_id');
+    if (!id) {
+      id = 'dev_' + Math.random().toString(36).slice(2) + Date.now();
+      localStorage.setItem('reveillon_device_id', id);
+    }
+    return id;
+  }
+  const deviceId = getDeviceId();
+
+  const voterNameInput = document.getElementById('voterName');
+  voterNameInput.value = localStorage.getItem('reveillon_voter_name') || '';
+  voterNameInput.addEventListener('input', () => {
+    localStorage.setItem('reveillon_voter_name', voterNameInput.value);
+  });
+
+  let allVotes = {}; // deviceId -> houseId
+  const voteListEl = document.getElementById('voteList');
+
+  function renderVotes() {
+    const counts = {};
+    HOUSES.forEach(h => counts[h.id] = 0);
+    Object.values(allVotes).forEach(houseId => {
+      if (counts[houseId] !== undefined) counts[houseId]++;
+    });
+    const totalVotes = Object.keys(allVotes).length;
+    const myVote = allVotes[deviceId];
+
+    voteListEl.innerHTML = HOUSES.map(h => {
+      const count = counts[h.id];
+      const pct = totalVotes > 0 ? Math.round((count / totalVotes) * 100) : 0;
+      const isMine = myVote === h.id;
+      return `
+        <div class="vote-card">
+          <div style="flex:1; min-width:0;">
+            <div class="vc-name">${h.name}</div>
+            <div class="vc-place">${h.place}</div>
+            <div class="vote-bar-wrap"><div class="vote-bar" style="width:${pct}%"></div></div>
+          </div>
+          <div class="vote-right">
+            <span class="vote-count">${count}</span>
+            <button class="vote-btn ${isMine ? 'voted' : ''}" data-house="${h.id}">
+              ${isMine ? '✓ Votado' : 'Votar'}
+            </button>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    voteListEl.querySelectorAll('.vote-btn').forEach(btn => {
+      btn.addEventListener('click', () => castVote(btn.dataset.house));
+    });
+  }
+
+  async function castVote(houseId) {
+    const name = voterNameInput.value.trim();
+    if (!name) {
+      alert('Digite seu nome antes de votar!');
+      voterNameInput.focus();
+      return;
+    }
+    await setDoc(doc(db, 'votes', deviceId), {
+      house: houseId,
+      name: name,
+      updatedAt: serverTimestamp()
+    });
+  }
+
+  onSnapshot(collection(db, 'votes'), (snap) => {
+    allVotes = {};
+    snap.forEach(d => { allVotes[d.id] = d.data().house; });
+    renderVotes();
+  });
+
+  renderVotes();
+
+  // ============================================================
+  // LISTA DE COMPRAS
+  // ============================================================
+  const shopInput = document.getElementById('shopInput');
+  const shopAddBtn = document.getElementById('shopAddBtn');
+  const shopListEl = document.getElementById('shopList');
+
+  async function addShopItem() {
+    const text = shopInput.value.trim();
+    if (!text) return;
+    const name = localStorage.getItem('reveillon_voter_name') || 'Alguém';
+    const id = 'item_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+    await setDoc(doc(db, 'shopping', id), {
+      text, done: false, addedBy: name, createdAt: serverTimestamp()
+    });
+    shopInput.value = '';
+  }
+  shopAddBtn.addEventListener('click', addShopItem);
+  shopInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') addShopItem(); });
+
+  function renderShopping(items) {
+    if (items.length === 0) {
+      shopListEl.innerHTML = '<div class="empty-state">Lista vazia. Adicione o primeiro item acima!</div>';
+      return;
+    }
+    shopListEl.innerHTML = items.map(it => `
+      <div class="shop-item">
+        <button class="shop-check ${it.done ? 'done' : ''}" data-id="${it.id}"></button>
+        <div style="flex:1; min-width:0;">
+          <div class="shop-text ${it.done ? 'done' : ''}">${it.text}</div>
+          <div class="shop-by">add. por ${it.addedBy || '—'}</div>
+        </div>
+        <button class="shop-del" data-id="${it.id}">✕</button>
+      </div>
+    `).join('');
+
+    shopListEl.querySelectorAll('.shop-check').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const item = items.find(i => i.id === btn.dataset.id);
+        await setDoc(doc(db, 'shopping', item.id), { ...item, done: !item.done });
+      });
+    });
+    shopListEl.querySelectorAll('.shop-del').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        await deleteDoc(doc(db, 'shopping', btn.dataset.id));
+      });
+    });
+  }
+
+  onSnapshot(collection(db, 'shopping'), (snap) => {
+    const items = [];
+    snap.forEach(d => items.push({ id: d.id, ...d.data() }));
+    items.sort((a, b) => (a.createdAt?.seconds || 0) - (b.createdAt?.seconds || 0));
+    renderShopping(items);
+  });
+</script>
 
 </body>
 </html>
