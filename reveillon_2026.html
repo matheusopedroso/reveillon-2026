@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Réveillon 2026/2027 · Comparativo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night:#0E1B2E;
+    --night-2:#142840;
+    --gold:#E8A33D;
+    --gold-soft:#F4C77B;
+    --terracotta:#C4623B;
+    --cream:#F3EAD8;
+    --sage:#7DA383;
+    --slate:#93A1B8;
+    --line:rgba(243,234,216,0.16);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--night);
+    color:var(--cream);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.5;
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:0 20px 60px;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:56px 20px 40px;
+    text-align:center;
+    background:
+      radial-gradient(circle at 20% 0%, rgba(232,163,61,0.18), transparent 55%),
+      radial-gradient(circle at 80% 10%, rgba(196,98,59,0.16), transparent 50%),
+      var(--night);
+    overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      radial-gradient(2px 2px at 10% 20%, var(--gold-soft) 0, transparent 60%),
+      radial-gradient(2px 2px at 85% 15%, var(--gold) 0, transparent 60%),
+      radial-gradient(1.5px 1.5px at 50% 8%, var(--cream) 0, transparent 60%),
+      radial-gradient(1.5px 1.5px at 70% 30%, var(--gold-soft) 0, transparent 60%),
+      radial-gradient(1.5px 1.5px at 25% 35%, var(--cream) 0, transparent 60%);
+    opacity:0.6;
+    pointer-events:none;
+  }
+  .eyebrow{
+    position:relative;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:18px;
+  }
+  .hero h1{
+    position:relative;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-optical-sizing:auto;
+    font-size:clamp(34px, 9vw, 52px);
+    line-height:1.02;
+    letter-spacing:-0.01em;
+  }
+  .hero h1 em{
+    font-style:italic;
+    font-weight:400;
+    color:var(--gold-soft);
+  }
+  .hero p.sub{
+    position:relative;
+    margin-top:14px;
+    color:var(--slate);
+    font-size:15px;
+    max-width:440px;
+    margin-left:auto; margin-right:auto;
+  }
+  .trip-facts{
+    position:relative;
+    margin-top:28px;
+    display:flex;
+    justify-content:center;
+    gap:0;
+    border:1px solid var(--line);
+    border-radius:14px;
+    overflow:hidden;
+    background:rgba(243,234,216,0.03);
+  }
+  .trip-facts div{
+    flex:1;
+    padding:14px 10px;
+    border-right:1px solid var(--line);
+  }
+  .trip-facts div:last-child{border-right:none;}
+  .trip-facts .k{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--slate);
+    display:block;
+    margin-bottom:4px;
+  }
+  .trip-facts .v{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:15px;
+    color:var(--cream);
+  }
+
+  /* ---------- SECTION HEADERS ---------- */
+  section{padding-top:48px;}
+  .sec-head{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin-bottom:22px;
+  }
+  .sec-num{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--terracotta);
+    font-size:13px;
+  }
+  .sec-head h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:22px;
+    color:var(--cream);
+  }
+  .sec-note{color:var(--slate); font-size:13.5px; margin-bottom:24px; max-width:560px;}
+
+  /* ---------- TICKET CARDS ---------- */
+  .tickets{display:flex; flex-direction:column; gap:16px;}
+  .ticket{
+    position:relative;
+    display:flex;
+    background:var(--night-2);
+    border:1px solid var(--line);
+    border-radius:16px;
+    overflow:hidden;
+    text-decoration:none;
+    color:inherit;
+    transition:border-color 0.15s ease, transform 0.15s ease;
+  }
+  .ticket:hover{border-color:rgba(232,163,61,0.6); transform:translateY(-1px);}
+  .ticket.best{border-color:rgba(232,163,61,0.55);}
+  .t-main{flex:1; padding:18px 18px 16px; min-width:0;}
+  .t-tag{
+    display:inline-block;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding:3px 8px;
+    border-radius:20px;
+    margin-bottom:10px;
+    color:var(--night);
+    background:var(--gold);
+  }
+  .t-tag.alt{background:var(--sage);}
+  .t-tag.alt2{background:var(--terracotta); color:var(--cream);}
+  .t-rank{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:var(--slate);
+    margin-bottom:6px;
+  }
+  .t-main h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:19px;
+    margin-bottom:2px;
+    color:var(--cream);
+  }
+  .t-main .place{color:var(--gold-soft); font-size:13px; margin-bottom:10px;}
+  .t-main .desc{color:var(--slate); font-size:13.5px; margin-bottom:12px;}
+  .t-meta{display:flex; gap:18px; flex-wrap:wrap;}
+  .t-meta div .k{display:block; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:var(--slate); font-family:'JetBrains Mono', monospace; margin-bottom:2px;}
+  .t-meta div .v{font-family:'JetBrains Mono', monospace; font-size:13.5px; color:var(--cream);}
+
+  .t-stub{
+    width:128px;
+    flex-shrink:0;
+    background:linear-gradient(180deg, rgba(232,163,61,0.10), rgba(196,98,59,0.10));
+    border-left:1.5px dashed rgba(243,234,216,0.3);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:14px 10px;
+    position:relative;
+  }
+  .t-stub::before, .t-stub::after{
+    content:"";
+    position:absolute;
+    width:16px; height:16px;
+    background:var(--night);
+    border-radius:50%;
+    left:-8px;
+  }
+  .t-stub::before{top:-8px;}
+  .t-stub::after{bottom:-8px;}
+  .t-stub .label{font-family:'JetBrains Mono', monospace; font-size:9.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--slate); margin-bottom:6px;}
+  .t-stub .price{font-family:'Fraunces', serif; font-weight:700; font-size:21px; color:var(--gold-soft); line-height:1.1;}
+  .t-stub .total{font-size:10.5px; color:var(--slate); margin-top:6px;}
+
+  /* ---------- ROAD COST TABLE ---------- */
+  .road-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    overflow:hidden;
+  }
+  .road-table thead th{
+    background:rgba(243,234,216,0.05);
+    font-family:'JetBrains Mono', monospace;
+    font-weight:500;
+    font-size:10.5px;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    color:var(--slate);
+    text-align:left;
+    padding:10px 10px;
+    border-bottom:1px solid var(--line);
+  }
+  .road-table td{
+    padding:11px 10px;
+    border-bottom:1px solid var(--line);
+    color:var(--cream);
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+  }
+  .road-table td.name{font-family:'Inter', sans-serif; font-size:13.5px;}
+  .road-table tbody tr:last-child td{border-bottom:none;}
+  .road-table td.total{color:var(--gold-soft); font-weight:700;}
+  .table-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+
+  /* ---------- RECOMMENDATIONS ---------- */
+  .recs{display:flex; flex-direction:column; gap:14px;}
+  .rec{
+    border-left:3px solid var(--gold);
+    background:rgba(243,234,216,0.04);
+    border-radius:0 12px 12px 0;
+    padding:16px 18px;
+  }
+  .rec.sage{border-color:var(--sage);}
+  .rec.terr{border-color:var(--terracotta);}
+  .rec.slate{border-color:var(--slate);}
+  .rec .rt{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--gold-soft);
+    margin-bottom:6px;
+  }
+  .rec.sage .rt{color:var(--sage);}
+  .rec.terr .rt{color:var(--terracotta);}
+  .rec.slate .rt{color:var(--slate);}
+  .rec p{font-size:14px; color:var(--cream);}
+  .rec p strong{color:var(--gold-soft); font-weight:700;}
+  .rec.sage p strong{color:var(--sage);}
+  .rec.terr p strong{color:var(--terracotta);}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    margin-top:50px;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+    text-align:center;
+    color:var(--slate);
+    font-size:12px;
+    font-family:'JetBrains Mono', monospace;
+  }
+
+  @media (max-width:480px){
+    .ticket{flex-direction:column;}
+    .t-stub{
+      width:100%;
+      flex-direction:row;
+      justify-content:space-between;
+      border-left:none;
+      border-top:1.5px dashed rgba(243,234,216,0.3);
+      padding:12px 18px;
+      text-align:left;
+    }
+    .t-stub::before, .t-stub::after{display:none;}
+    .t-stub .price{font-size:19px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="eyebrow">Planejamento de Viagem</div>
+  <h1>Réveillon<br><em>2026 / 2027</em></h1>
+  <p class="sub">Comparativo das 7 opções de hospedagem para a virada de ano — saindo de Belo Horizonte, grupo de 10 pessoas.</p>
+  <div class="trip-facts">
+    <div><span class="k">Período</span><span class="v">30/12 a 03/01</span></div>
+    <div><span class="k">Grupo</span><span class="v">10 pessoas</span></div>
+    <div><span class="k">Origem</span><span class="v">Belo Horizonte</span></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><h2>As 7 opções</h2></div>
+    <p class="sec-note">Cada "bilhete" traz a distância de BH, o tempo de ida e o valor por pessoa para as 4 diárias.</p>
+
+    <div class="tickets">
+
+      <a class="ticket best" href="https://www.airbnb.com.br/rooms/1652176152301504708" target="_blank" rel="noopener">
+        <div class="t-main">
+          <span class="t-tag">Mais econômica</span>
+          <div class="t-rank">Opção 06 · ★3,67 (3 avaliações)</div>
+          <h3>Chácara Amore</h3>
+          <div class="place">São Sebastião do Oeste · MG</div>
+          <div class="desc">Rancho com vista para a montanha e piscina. Menor custo total de locação do grupo.</div>
+          <div class="t-meta">
+            <div><span class="k">Distância</span><span class="v">~140 km</span></div>
+            <div><span class="k">Tempo</span><span class="v">2h15</span></div>
+          </div>
+        </div>
+        <div class="t-stub">
+          <span class="label">por pessoa</span>
+          <span class="price">R$ 340</span>
+          <span class="total">total R$ 3.402</span>
+        </div>
+      </a>
+
+      <a class="ticket best" href="https://www.airbnb.com.br/rooms/33653498" target="_blank" rel="noopener">
+        <div class="t-main">
+          <span class="t-tag alt">Mais próxima</span>
+          <div class="t-rank">Opção 04 · ★5,0 (8 avaliações) · Preferido dos hóspedes</div>
+          <h3>Sítio Caninha Mineira</h3>
+          <div class="place">Itatiaiuçu · MG</div>
+          <div class="desc">Casa nova com piscina, sauna e sinuca. Acesso rápido pela BR-381, ótimo preço.</div>
+          <div class="t-meta">
+            <div><span class="k">Distância</span><span class="v">~75 km</span></div>
+            <div><span class="k">Tempo</span><span class="v">1h15</span></div>
+          </div>
+        </div>
+        <div class="t-stub">
+          <span class="label">por pessoa</span>
+          <span class="price">R$ 362</span>
+          <span class="total">total R$ 3.622</span>
+        </div>
+      </a>
+
+      <a class="ticket" href="https://www.airbnb.com.br/rooms/595507554248970700" target="_blank" rel="noopener">
+        <div class="t-main">
+          <div class="t-rank">Opção 01 · ★4,86 (14 avaliações)</div>
+          <h3>Casa à Beira do Lago</h3>
+          <div class="place">Praia de Roseira, Santana do Riacho · MG</div>
+          <div class="desc">Região da Serra do Cipó, em frente à Represa de Carmo do Cajuru. Bicicletas e caiaques. Sem pedágios no trajeto.</div>
+          <div class="t-meta">
+            <div><span class="k">Distância</span><span class="v">~125 km</span></div>
+            <div><span class="k">Tempo</span><span class="v">2h20</span></div>
+          </div>
+        </div>
+        <div class="t-stub">
+          <span class="label">por pessoa</span>
+          <span class="price">R$ 377</span>
+          <span class="total">total R$ 3.773</span>
+        </div>
+      </a>
+
+      <a class="ticket" href="https://www.airbnb.com.br/rooms/1564447945209727662" target="_blank" rel="noopener">
+        <div class="t-main">
+          <div class="t-rank">Opção 05 · ★5,0 (1 avaliação)</div>
+          <h3>Recanto Ubuntu</h3>
+          <div class="place">Rio Manso · MG</div>
+          <div class="desc">Sítio simples e tranquilo, perto do centrinho. Proximidade ideal de BH, acesso via Fernão Dias.</div>
+          <div class="t-meta">
+            <div><span class="k">Distância</span><span class="v">~78 km</span></div>
+            <div><span class="k">Tempo</span><span class="v">1h25</span></div>
+          </div>
+        </div>
+        <div class="t-stub">
+          <span class="label">por pessoa</span>
+          <span class="price">R$ 412</span>
+          <span class="total">total R$ 4.122</span>
+        </div>
+      </a>
+
+      <a class="ticket" href="https://www.airbnb.com.br/rooms/1095526079851318094" target="_blank" rel="noopener">
+        <div class="t-main">
+          <span class="t-tag alt2">Longa distância</span>
+          <div class="t-rank">Opção 07 · ★5,0 (2 avaliações)</div>
+          <h3>Ranchinho Três Marias</h3>
+          <div class="place">Três Marias · MG</div>
+          <div class="desc">2 suítes, área de churrasco coberta e piscina. Próximo à represa, mas maior tempo de rodovia (BR-040).</div>
+          <div class="t-meta">
+            <div><span class="k">Distância</span><span class="v">~270 km</span></div>
+            <div><span class="k">Tempo</span><span class="v">3h45</span></div>
+          </div>
+        </div>
+        <div class="t-stub">
+          <span class="label">por pessoa</span>
+          <span class="price">R$ 453</span>
+          <span class="total">total R$ 4.527</span>
+        </div>
+      </a>
+
+      <a class="ticket" href="https://www.airbnb.com.br/rooms/1049512959539341861" target="_blank" rel="noopener">
+        <div class="t-main">
+          <span class="t-tag alt">Custo-benefício</span>
+          <div class="t-rank">Opção 08 · ★4,75 (12 avaliações) · Superhost</div>
+          <h3>Casa na Montanha</h3>
+          <div class="place">Itaguara · MG</div>
+          <div class="desc">Sítio com piscina, espaço gourmet amplo e vista das montanhas. 8 vagas de garagem.</div>
+          <div class="t-meta">
+            <div><span class="k">Quartos</span><span class="v">3 (9 camas)</span></div>
+          </div>
+        </div>
+        <div class="t-stub">
+          <span class="label">por pessoa</span>
+          <span class="price">R$ 482</span>
+          <span class="total">total R$ 4.817</span>
+        </div>
+      </a>
+
+      <a class="ticket" href="https://www.airbnb.com.br/rooms/1572170797420297173" target="_blank" rel="noopener">
+        <div class="t-main">
+          <div class="t-rank">Opção 02 · ★5,0 (1 avaliação)</div>
+          <h3>Veredas Tropical</h3>
+          <div class="place">Cláudio · MG</div>
+          <div class="desc">Barragem de Carmo do Cajuru. Condomínio fechado com piscina, sauna, quadra e salão de jogos.</div>
+          <div class="t-meta">
+            <div><span class="k">Distância</span><span class="v">~147 km</span></div>
+            <div><span class="k">Tempo</span><span class="v">2h30</span></div>
+          </div>
+        </div>
+        <div class="t-stub">
+          <span class="label">por pessoa</span>
+          <span class="price">R$ 561</span>
+          <span class="total">total R$ 5.607</span>
+        </div>
+      </a>
+
+      <a class="ticket" href="https://www.airbnb.com.br/rooms/1309481415211547697" target="_blank" rel="noopener">
+        <div class="t-main">
+          <span class="t-tag alt2">Alto padrão</span>
+          <div class="t-rank">Opção 09 · ★4,83 (6 avaliações) · Preferido dos hóspedes</div>
+          <h3>Sítio de Luxo</h3>
+          <div class="place">Cláudio · MG</div>
+          <div class="desc">Acesso direto à água da barragem de Carmo do Cajuru, lote gramado, churrasqueira e sinuca, dentro do condomínio Veredas Tropical.</div>
+          <div class="t-meta">
+            <div><span class="k">Quartos</span><span class="v">3 (6 camas)</span></div>
+          </div>
+        </div>
+        <div class="t-stub">
+          <span class="label">por pessoa</span>
+          <span class="price">R$ 720</span>
+          <span class="total">total R$ 7.197</span>
+        </div>
+      </a>
+
+      <a class="ticket" href="https://www.airbnb.com.br/rooms/1457397702663111831" target="_blank" rel="noopener">
+        <div class="t-main">
+          <span class="t-tag alt2">Alto padrão</span>
+          <div class="t-rank">Opção 03 · sem avaliações ainda</div>
+          <h3>Cajurucasa</h3>
+          <div class="place">Carmo do Cajuru · MG</div>
+          <div class="desc">À beira da represa, piscina aquecida, sauna, freezer cervejeiro e área gourmet de luxo.</div>
+          <div class="t-meta">
+            <div><span class="k">Distância</span><span class="v">~124 km</span></div>
+            <div><span class="k">Tempo</span><span class="v">2h20</span></div>
+          </div>
+        </div>
+        <div class="t-stub">
+          <span class="label">por pessoa</span>
+          <span class="price">R$ 731</span>
+          <span class="total">total R$ 7.313</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><h2>Custo de estrada</h2></div>
+    <p class="sec-note">Ida e volta por veículo. Consumo médio de 10 km/L e combustível a R$ 6,10/L.</p>
+    <div class="table-scroll">
+    <table class="road-table">
+      <thead>
+        <tr>
+          <th>Destino</th>
+          <th>KM total</th>
+          <th>Pedágio</th>
+          <th>Combustível</th>
+          <th>Total / carro</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="name">Praia de Roseira</td><td>~250 km</td><td>Isento</td><td>R$ 152,50</td><td class="total">R$ 152,50</td></tr>
+        <tr><td class="name">Cláudio</td><td>~294 km</td><td>R$ 6,40</td><td>R$ 179,34</td><td class="total">R$ 185,74</td></tr>
+        <tr><td class="name">Carmo do Cajuru</td><td>~248 km</td><td>R$ 18,20</td><td>R$ 151,28</td><td class="total">R$ 169,48</td></tr>
+        <tr><td class="name">Itatiaiuçu</td><td>~150 km</td><td>R$ 6,40</td><td>R$ 91,50</td><td class="total">R$ 97,90</td></tr>
+        <tr><td class="name">Rio Manso</td><td>~156 km</td><td>R$ 6,40</td><td>R$ 95,16</td><td class="total">R$ 101,56</td></tr>
+        <tr><td class="name">São Sebastião do Oeste</td><td>~280 km</td><td>R$ 18,20</td><td>R$ 170,80</td><td class="total">R$ 189,00</td></tr>
+        <tr><td class="name">Três Marias</td><td>~540 km</td><td>R$ 77,40</td><td>R$ 329,40</td><td class="total">R$ 406,80</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">04</span><h2>Comida e bebida</h2></div>
+    <p class="sec-note">Estimativa para galera na casa dos 30 que bebe e come bem — churrasco caprichado, bom tira-gosto, almoços e a ceia da virada, do dia 30/12 ao 03/01.</p>
+    <div class="table-scroll">
+    <table class="road-table">
+      <thead>
+        <tr><th>Item</th><th>Detalhe</th><th>Por pessoa</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="name">Café da manhã (5 dias)</td><td>pão, frios, queijos, frutas, café</td><td class="total">R$ 70</td></tr>
+        <tr><td class="name">Almoços (4x)</td><td>massa, marmita boa, prato caprichado</td><td class="total">R$ 220</td></tr>
+        <tr><td class="name">Churrasco (2 ocasiões)</td><td>carnes nobres, carvão, acompanhamentos</td><td class="total">R$ 220</td></tr>
+        <tr><td class="name">Tira-gosto / petiscos</td><td>salgados, queijo, embutidos, frituras</td><td class="total">R$ 80</td></tr>
+        <tr><td class="name">Ceia de Réveillon</td><td>lentilha, uvas, pratos especiais</td><td class="total">R$ 90</td></tr>
+        <tr><td class="name">Cerveja</td><td>~1,5 caixa por pessoa</td><td class="total">R$ 160</td></tr>
+        <tr><td class="name">Drinks / destilados</td><td>gin, vodka, whisky de boa qualidade</td><td class="total">R$ 130</td></tr>
+        <tr><td class="name">Espumante da virada</td><td>brinde à meia-noite</td><td class="total">R$ 60</td></tr>
+        <tr><td class="name">Água, gelo, descartáveis</td><td>copos, guardanapo, gelo</td><td class="total">R$ 50</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="sec-note" style="margin-top:16px; margin-bottom:0;">Total estimado: <strong style="color:var(--gold-soft)">R$ 1.080/pessoa</strong> · <strong style="color:var(--gold-soft)">R$ 10.800</strong> para o grupo — média de ~R$ 215/pessoa por dia, perfil "bebe e come bem" sem ser exagerado.</p>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">05</span><h2>Recomendações</h2></div>
+    <div class="recs">
+      <div class="rec sage">
+        <div class="rt">Foco em economia</div>
+        <p><strong>Rancho — São Sebastião do Oeste (Opção 6)</strong> tem a estadia mais barata, R$ 340,20/pessoa. Somado ao baixo custo de estrada, é a opção mais vantajosa no orçamento total.</p>
+      </div>
+      <div class="rec">
+        <div class="rt">Foco em conforto e tempo</div>
+        <p><strong>Casa de Campo — Itatiaiuçu (Opção 4)</strong> equilibra preço baixo (R$ 362,20/pessoa) com apenas 1h15 de viagem, reduzindo cansaço e gasto de combustível.</p>
+      </div>
+      <div class="rec terr">
+        <div class="rt">Foco em luxo e lazer completo</div>
+        <p><strong>Cajurucasa (Opção 3)</strong> é o maior investimento, R$ 731,30/pessoa, mas entrega infraestrutura premium à beira-represa, piscina aquecida e ar-condicionado em todos os cômodos.</p>
+      </div>
+      <div class="rec slate">
+        <div class="rt">Atenção com logística</div>
+        <p><strong>Três Marias</strong> tem o maior custo de rodagem, R$ 406,80 por carro, e quase 4h de viagem pela BR-040 — vale ponderar o cansaço da estrada.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>Planejamento Réveillon 2026/2027 · Grupo de 10 pessoas · Origem Belo Horizonte · 9 opções de hospedagem</footer>
+
+</div>
+
+</body>
+</html>
