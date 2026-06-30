@@ -167,6 +167,7 @@
   }
   .t-tag.alt{background:var(--sage);}
   .t-tag.alt2{background:var(--terracotta); color:var(--cream);}
+  .t-tag.winner{background:linear-gradient(90deg, var(--gold), var(--gold-soft)); color:var(--night); display:none;}
   .t-rank{
     font-family:'JetBrains Mono', monospace;
     font-size:11px;
@@ -318,7 +319,7 @@
   /* ---------- VOTE CARDS ---------- */
   .vote-card{
     display:flex;
-    align-items:center;
+    align-items:flex-start;
     justify-content:space-between;
     gap:14px;
     background:var(--night-2);
@@ -329,9 +330,23 @@
   }
   .vote-card .vc-name{font-family:'Fraunces', serif; font-weight:600; font-size:16px; color:var(--cream);}
   .vote-card .vc-place{font-size:12.5px; color:var(--slate); margin-top:2px;}
+  .vc-meta{
+    display:flex;
+    gap:12px;
+    margin-top:6px;
+  }
+  .vc-meta span{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:var(--gold-soft);
+    background:rgba(232,163,61,0.08);
+    border-radius:6px;
+    padding:2px 8px;
+  }
   .vote-bar-wrap{height:5px; background:rgba(243,234,216,0.08); border-radius:4px; margin-top:8px; overflow:hidden; width:100%;}
   .vote-bar{height:100%; background:linear-gradient(90deg, var(--gold), var(--terracotta)); border-radius:4px; transition:width 0.3s ease;}
-  .vote-right{display:flex; flex-direction:column; align-items:center; gap:6px; flex-shrink:0;}
+  .vc-voters{font-size:11.5px; color:var(--slate); margin-top:8px; font-family:'Inter', sans-serif;}
+  .vote-right{display:flex; flex-direction:column; align-items:center; gap:6px; flex-shrink:0; padding-top:2px;}
   .vote-count{font-family:'JetBrains Mono', monospace; font-size:18px; font-weight:700; color:var(--gold-soft);}
   .vote-btn{
     background:var(--gold);
@@ -347,6 +362,21 @@
   }
   .vote-btn:hover{opacity:0.85;}
   .vote-btn.voted{background:var(--sage); color:var(--night);}
+  .vote-link{
+    display:inline-flex;
+    align-items:center;
+    background:transparent;
+    border:1px solid var(--line);
+    color:var(--gold-soft);
+    border-radius:20px;
+    padding:8px 16px;
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    font-size:12.5px;
+    text-decoration:none;
+    transition:border-color 0.15s ease;
+  }
+  .vote-link:hover{border-color:var(--gold);}
   .voter-input{
     width:100%;
     background:var(--night-2);
@@ -448,9 +478,9 @@
   <h1>Réveillon<br><em>2026 / 2027</em></h1>
   <p class="sub">Comparativo das 7 opções de hospedagem para a virada de ano — saindo de Belo Horizonte, grupo de 10 pessoas.</p>
   <div class="trip-facts">
-    <div><span class="k">Período</span><span class="v">30/12 a 03/01</span></div>
-    <div><span class="k">Grupo</span><span class="v">10 pessoas</span></div>
-    <div><span class="k">Origem</span><span class="v">Belo Horizonte</span></div>
+    <div><span class="k">Período</span><span class="v" id="tripPeriod">30/12 a 03/01</span></div>
+    <div><span class="k">Grupo</span><span class="v" id="tripGroup">10 pessoas</span></div>
+    <div><span class="k">Origem</span><span class="v" id="tripOrigin">Belo Horizonte</span></div>
   </div>
 </div>
 
@@ -470,101 +500,107 @@
 
     <div class="tickets">
 
-      <a class="ticket best" href="https://www.airbnb.com.br/rooms/1652176152301504708" target="_blank" rel="noopener">
+      <a class="ticket best" href="https://www.airbnb.com.br/rooms/1652176152301504708" data-house="06" target="_blank" rel="noopener">
         <div class="t-main">
+          <span class="t-tag winner">🏆 Mais votada</span>
           <span class="t-tag">Mais econômica</span>
           <div class="t-rank">Opção 06 · ★3,67 (3 avaliações)</div>
           <h3>Chácara Amore</h3>
           <div class="place">São Sebastião do Oeste · MG</div>
           <div class="desc">Rancho com vista para a montanha e piscina. Menor custo total de locação do grupo.</div>
           <div class="t-meta">
-            <div><span class="k">Distância</span><span class="v">~140 km</span></div>
-            <div><span class="k">Tempo</span><span class="v">2h15</span></div>
+            <div><span class="k">Distância</span><span class="v" data-field="distance">~140 km</span></div>
+            <div><span class="k">Tempo</span><span class="v" data-field="time">2h15</span></div>
           </div>
         </div>
         <div class="t-stub">
           <span class="label">por pessoa</span>
-          <span class="price">R$ 340</span>
-          <span class="total">total R$ 3.402</span>
+          <span class="price" data-field="price">R$ 340</span>
+          <span class="total" data-field="total">total R$ 3.402</span>
         </div>
       </a>
 
-      <a class="ticket best" href="https://www.airbnb.com.br/rooms/33653498" target="_blank" rel="noopener">
+      <a class="ticket best" href="https://www.airbnb.com.br/rooms/33653498" data-house="04" target="_blank" rel="noopener">
         <div class="t-main">
+          <span class="t-tag winner">🏆 Mais votada</span>
           <span class="t-tag alt">Mais próxima</span>
           <div class="t-rank">Opção 04 · ★5,0 (8 avaliações) · Preferido dos hóspedes</div>
           <h3>Sítio Caninha Mineira</h3>
           <div class="place">Itatiaiuçu · MG</div>
           <div class="desc">Casa nova com piscina, sauna e sinuca. Acesso rápido pela BR-381, ótimo preço.</div>
           <div class="t-meta">
-            <div><span class="k">Distância</span><span class="v">~75 km</span></div>
-            <div><span class="k">Tempo</span><span class="v">1h15</span></div>
+            <div><span class="k">Distância</span><span class="v" data-field="distance">~75 km</span></div>
+            <div><span class="k">Tempo</span><span class="v" data-field="time">1h15</span></div>
           </div>
         </div>
         <div class="t-stub">
           <span class="label">por pessoa</span>
-          <span class="price">R$ 362</span>
-          <span class="total">total R$ 3.622</span>
+          <span class="price" data-field="price">R$ 362</span>
+          <span class="total" data-field="total">total R$ 3.622</span>
         </div>
       </a>
 
-      <a class="ticket" href="https://www.airbnb.com.br/rooms/595507554248970700" target="_blank" rel="noopener">
+      <a class="ticket" href="https://www.airbnb.com.br/rooms/595507554248970700" data-house="01" target="_blank" rel="noopener">
         <div class="t-main">
+          <span class="t-tag winner">🏆 Mais votada</span>
           <div class="t-rank">Opção 01 · ★4,86 (14 avaliações)</div>
           <h3>Casa à Beira do Lago</h3>
           <div class="place">Praia de Roseira, Santana do Riacho · MG</div>
           <div class="desc">Região da Serra do Cipó, em frente à Represa de Carmo do Cajuru. Bicicletas e caiaques. Sem pedágios no trajeto.</div>
           <div class="t-meta">
-            <div><span class="k">Distância</span><span class="v">~125 km</span></div>
-            <div><span class="k">Tempo</span><span class="v">2h20</span></div>
+            <div><span class="k">Distância</span><span class="v" data-field="distance">~125 km</span></div>
+            <div><span class="k">Tempo</span><span class="v" data-field="time">2h20</span></div>
           </div>
         </div>
         <div class="t-stub">
           <span class="label">por pessoa</span>
-          <span class="price">R$ 377</span>
-          <span class="total">total R$ 3.773</span>
+          <span class="price" data-field="price">R$ 377</span>
+          <span class="total" data-field="total">total R$ 3.773</span>
         </div>
       </a>
 
-      <a class="ticket" href="https://www.airbnb.com.br/rooms/1564447945209727662" target="_blank" rel="noopener">
+      <a class="ticket" href="https://www.airbnb.com.br/rooms/1564447945209727662" data-house="05" target="_blank" rel="noopener">
         <div class="t-main">
+          <span class="t-tag winner">🏆 Mais votada</span>
           <div class="t-rank">Opção 05 · ★5,0 (1 avaliação)</div>
           <h3>Recanto Ubuntu</h3>
           <div class="place">Rio Manso · MG</div>
           <div class="desc">Sítio simples e tranquilo, perto do centrinho. Proximidade ideal de BH, acesso via Fernão Dias.</div>
           <div class="t-meta">
-            <div><span class="k">Distância</span><span class="v">~78 km</span></div>
-            <div><span class="k">Tempo</span><span class="v">1h25</span></div>
+            <div><span class="k">Distância</span><span class="v" data-field="distance">~78 km</span></div>
+            <div><span class="k">Tempo</span><span class="v" data-field="time">1h25</span></div>
           </div>
         </div>
         <div class="t-stub">
           <span class="label">por pessoa</span>
-          <span class="price">R$ 412</span>
-          <span class="total">total R$ 4.122</span>
+          <span class="price" data-field="price">R$ 412</span>
+          <span class="total" data-field="total">total R$ 4.122</span>
         </div>
       </a>
 
-      <a class="ticket" href="https://www.airbnb.com.br/rooms/1095526079851318094" target="_blank" rel="noopener">
+      <a class="ticket" href="https://www.airbnb.com.br/rooms/1095526079851318094" data-house="07" target="_blank" rel="noopener">
         <div class="t-main">
+          <span class="t-tag winner">🏆 Mais votada</span>
           <span class="t-tag alt2">Longa distância</span>
           <div class="t-rank">Opção 07 · ★5,0 (2 avaliações)</div>
           <h3>Ranchinho Três Marias</h3>
           <div class="place">Três Marias · MG</div>
           <div class="desc">2 suítes, área de churrasco coberta e piscina. Próximo à represa, mas maior tempo de rodovia (BR-040).</div>
           <div class="t-meta">
-            <div><span class="k">Distância</span><span class="v">~270 km</span></div>
-            <div><span class="k">Tempo</span><span class="v">3h45</span></div>
+            <div><span class="k">Distância</span><span class="v" data-field="distance">~270 km</span></div>
+            <div><span class="k">Tempo</span><span class="v" data-field="time">3h45</span></div>
           </div>
         </div>
         <div class="t-stub">
           <span class="label">por pessoa</span>
-          <span class="price">R$ 453</span>
-          <span class="total">total R$ 4.527</span>
+          <span class="price" data-field="price">R$ 453</span>
+          <span class="total" data-field="total">total R$ 4.527</span>
         </div>
       </a>
 
-      <a class="ticket" href="https://www.airbnb.com.br/rooms/1049512959539341861" target="_blank" rel="noopener">
+      <a class="ticket" href="https://www.airbnb.com.br/rooms/1049512959539341861" data-house="08" target="_blank" rel="noopener">
         <div class="t-main">
+          <span class="t-tag winner">🏆 Mais votada</span>
           <span class="t-tag alt">Custo-benefício</span>
           <div class="t-rank">Opção 08 · ★4,75 (12 avaliações) · Superhost</div>
           <h3>Casa na Montanha</h3>
@@ -576,31 +612,33 @@
         </div>
         <div class="t-stub">
           <span class="label">por pessoa</span>
-          <span class="price">R$ 482</span>
-          <span class="total">total R$ 4.817</span>
+          <span class="price" data-field="price">R$ 482</span>
+          <span class="total" data-field="total">total R$ 4.817</span>
         </div>
       </a>
 
-      <a class="ticket" href="https://www.airbnb.com.br/rooms/1572170797420297173" target="_blank" rel="noopener">
+      <a class="ticket" href="https://www.airbnb.com.br/rooms/1572170797420297173" data-house="02" target="_blank" rel="noopener">
         <div class="t-main">
+          <span class="t-tag winner">🏆 Mais votada</span>
           <div class="t-rank">Opção 02 · ★5,0 (1 avaliação)</div>
           <h3>Veredas Tropical</h3>
           <div class="place">Cláudio · MG</div>
           <div class="desc">Barragem de Carmo do Cajuru. Condomínio fechado com piscina, sauna, quadra e salão de jogos.</div>
           <div class="t-meta">
-            <div><span class="k">Distância</span><span class="v">~147 km</span></div>
-            <div><span class="k">Tempo</span><span class="v">2h30</span></div>
+            <div><span class="k">Distância</span><span class="v" data-field="distance">~147 km</span></div>
+            <div><span class="k">Tempo</span><span class="v" data-field="time">2h30</span></div>
           </div>
         </div>
         <div class="t-stub">
           <span class="label">por pessoa</span>
-          <span class="price">R$ 561</span>
-          <span class="total">total R$ 5.607</span>
+          <span class="price" data-field="price">R$ 561</span>
+          <span class="total" data-field="total">total R$ 5.607</span>
         </div>
       </a>
 
-      <a class="ticket" href="https://www.airbnb.com.br/rooms/1309481415211547697" target="_blank" rel="noopener">
+      <a class="ticket" href="https://www.airbnb.com.br/rooms/1309481415211547697" data-house="09" target="_blank" rel="noopener">
         <div class="t-main">
+          <span class="t-tag winner">🏆 Mais votada</span>
           <span class="t-tag alt2">Alto padrão</span>
           <div class="t-rank">Opção 09 · ★4,83 (6 avaliações) · Preferido dos hóspedes</div>
           <h3>Sítio de Luxo</h3>
@@ -612,27 +650,28 @@
         </div>
         <div class="t-stub">
           <span class="label">por pessoa</span>
-          <span class="price">R$ 720</span>
-          <span class="total">total R$ 7.197</span>
+          <span class="price" data-field="price">R$ 720</span>
+          <span class="total" data-field="total">total R$ 7.197</span>
         </div>
       </a>
 
-      <a class="ticket" href="https://www.airbnb.com.br/rooms/1457397702663111831" target="_blank" rel="noopener">
+      <a class="ticket" href="https://www.airbnb.com.br/rooms/1457397702663111831" data-house="03" target="_blank" rel="noopener">
         <div class="t-main">
+          <span class="t-tag winner">🏆 Mais votada</span>
           <span class="t-tag alt2">Alto padrão</span>
           <div class="t-rank">Opção 03 · sem avaliações ainda</div>
           <h3>Cajurucasa</h3>
           <div class="place">Carmo do Cajuru · MG</div>
           <div class="desc">À beira da represa, piscina aquecida, sauna, freezer cervejeiro e área gourmet de luxo.</div>
           <div class="t-meta">
-            <div><span class="k">Distância</span><span class="v">~124 km</span></div>
-            <div><span class="k">Tempo</span><span class="v">2h20</span></div>
+            <div><span class="k">Distância</span><span class="v" data-field="distance">~124 km</span></div>
+            <div><span class="k">Tempo</span><span class="v" data-field="time">2h20</span></div>
           </div>
         </div>
         <div class="t-stub">
           <span class="label">por pessoa</span>
-          <span class="price">R$ 731</span>
-          <span class="total">total R$ 7.313</span>
+          <span class="price" data-field="price">R$ 731</span>
+          <span class="total" data-field="total">total R$ 7.313</span>
         </div>
       </a>
 
@@ -640,7 +679,28 @@
   </section>
 
   <section>
-    <div class="sec-head"><span class="sec-num">02</span><h2>Custo de estrada</h2></div>
+    <div class="sec-head"><span class="sec-num">02</span><h2>Tabela resumo</h2></div>
+    <p class="sec-note">Todas as casas lado a lado, ordenadas do mais barato pro mais caro.</p>
+    <div class="table-scroll">
+    <table class="road-table">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Localização</th>
+          <th>Distância</th>
+          <th>Tempo</th>
+          <th>Valor/pessoa</th>
+        </tr>
+      </thead>
+      <tbody id="summaryTableBody">
+        <tr><td colspan="5" style="text-align:center; color:var(--slate);">Carregando...</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">03</span><h2>Custo de estrada</h2></div>
     <p class="sec-note">Ida e volta por veículo. Consumo médio de 10 km/L e combustível a R$ 6,10/L.</p>
     <div class="table-scroll">
     <table class="road-table">
@@ -662,6 +722,15 @@
         <tr><td class="name">São Sebastião do Oeste</td><td>~280 km</td><td>R$ 18,20</td><td>R$ 170,80</td><td class="total">R$ 189,00</td></tr>
         <tr><td class="name">Três Marias</td><td>~540 km</td><td>R$ 77,40</td><td>R$ 329,40</td><td class="total">R$ 406,80</td></tr>
       </tbody>
+      <tfoot>
+        <tr style="border-top:1.5px solid var(--line);">
+          <td class="name" style="font-weight:600; color:var(--gold-soft);">Soma (7 destinos)</td>
+          <td></td>
+          <td style="font-weight:700; color:var(--gold-soft);">R$ 133,00</td>
+          <td style="font-weight:700; color:var(--gold-soft);">R$ 1.169,98</td>
+          <td class="total" style="font-weight:700;">R$ 1.302,98</td>
+        </tr>
+      </tfoot>
     </table>
     </div>
   </section>
@@ -716,10 +785,23 @@
 
 <div id="tab-votacao" class="tab-panel">
   <section style="padding-top:32px;">
-    <div class="sec-head"><span class="sec-num">★</span><h2>Vote na sua casa favorita</h2></div>
-    <p class="sec-note">Digite seu nome, escolha uma casa e clique em votar. O placar atualiza pra todo mundo em tempo real.</p>
+    <div class="sec-head"><span class="sec-num">✓</span><h2>Confirme presença</h2></div>
+    <p class="sec-note">Digite seu nome e confirme se você vai. Isso alimenta o rateio automático mais abaixo.</p>
     <input type="text" id="voterName" class="voter-input" placeholder="Seu nome" autocomplete="off">
+    <button id="confirmBtn" class="vote-btn" style="margin-bottom:8px;">Confirmar presença</button>
+    <p class="sec-note" id="confirmedList" style="margin-top:10px; margin-bottom:0;"></p>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">★</span><h2>Vote na sua casa favorita</h2></div>
+    <p class="sec-note">Escolha uma casa e clique em votar. O placar atualiza pra todo mundo em tempo real.</p>
     <div id="voteList"></div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">÷</span><h2>Rateio automático</h2></div>
+    <p class="sec-note">Calculado com base na casa mais votada e em quantas pessoas confirmaram presença.</p>
+    <div id="rateioBox" class="rec" style="border-color:var(--gold);"></div>
   </section>
 </div>
 
@@ -729,9 +811,11 @@
     <p class="sec-note">Adicione o que falta comprar. Marque como feito quando comprar, qualquer um pode editar.</p>
     <div class="shop-add">
       <input type="text" id="shopInput" placeholder="Ex: carvão, gelo, refrigerante..." autocomplete="off">
+      <input type="text" inputmode="decimal" id="shopPriceInput" placeholder="R$" style="max-width:90px; flex:none;" autocomplete="off">
       <button id="shopAddBtn">Adicionar</button>
     </div>
     <div id="shopList"></div>
+    <div id="shopTotal" class="sec-note" style="margin-top:14px; margin-bottom:0;"></div>
   </section>
 </div>
 
@@ -746,7 +830,7 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import {
     getFirestore, collection, doc, setDoc, deleteDoc,
-    onSnapshot, serverTimestamp
+    onSnapshot, serverTimestamp, getDocs, getDoc
   } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
   const firebaseConfig = {
@@ -776,17 +860,35 @@
   // ============================================================
   // VOTAÇÃO
   // ============================================================
-  const HOUSES = [
-    { id: "06", name: "Chácara Amore", place: "São Sebastião do Oeste" },
-    { id: "04", name: "Sítio Caninha Mineira", place: "Itatiaiuçu" },
-    { id: "01", name: "Casa à Beira do Lago", place: "Praia de Roseira" },
-    { id: "05", name: "Recanto Ubuntu", place: "Rio Manso" },
-    { id: "07", name: "Ranchinho Três Marias", place: "Três Marias" },
-    { id: "08", name: "Casa na Montanha", place: "Itaguara" },
-    { id: "02", name: "Veredas Tropical", place: "Cláudio" },
-    { id: "09", name: "Sítio de Luxo", place: "Cláudio" },
-    { id: "03", name: "Cajurucasa", place: "Carmo do Cajuru" }
+  // HOUSES agora vem do Firestore (coleção "houses").
+  // Pra editar nome, valor, distância, etc., é só abrir o Firebase Console
+  // -> Firestore Database -> coleção "houses" -> editar o documento.
+  let HOUSES = [];
+
+  const DEFAULT_HOUSES = [
+    { id: "06", name: "Chácara Amore", place: "São Sebastião do Oeste", total: 3402, road: 189.00, url: "https://www.airbnb.com.br/rooms/1652176152301504708", distance: "~140 km", time: "2h15" },
+    { id: "04", name: "Sítio Caninha Mineira", place: "Itatiaiuçu", total: 3622, road: 97.90, url: "https://www.airbnb.com.br/rooms/33653498", distance: "~75 km", time: "1h15" },
+    { id: "01", name: "Casa à Beira do Lago", place: "Praia de Roseira", total: 3773, road: 152.50, url: "https://www.airbnb.com.br/rooms/595507554248970700", distance: "~125 km", time: "2h20" },
+    { id: "05", name: "Recanto Ubuntu", place: "Rio Manso", total: 4122, road: 101.56, url: "https://www.airbnb.com.br/rooms/1564447945209727662", distance: "~78 km", time: "1h25" },
+    { id: "07", name: "Ranchinho Três Marias", place: "Três Marias", total: 4527, road: 406.80, url: "https://www.airbnb.com.br/rooms/1095526079851318094", distance: "~270 km", time: "3h45" },
+    { id: "08", name: "Casa na Montanha", place: "Itaguara", total: 4817, road: null, url: "https://www.airbnb.com.br/rooms/1049512959539341861", distance: null, time: null },
+    { id: "02", name: "Veredas Tropical", place: "Cláudio", total: 5607, road: 185.74, url: "https://www.airbnb.com.br/rooms/1572170797420297173", distance: "~147 km", time: "2h30" },
+    { id: "09", name: "Sítio de Luxo", place: "Cláudio", total: 7197, road: 185.74, url: "https://www.airbnb.com.br/rooms/1309481415211547697", distance: "~147 km", time: "2h30" },
+    { id: "03", name: "Cajurucasa", place: "Carmo do Cajuru", total: 7313, road: 169.48, url: "https://www.airbnb.com.br/rooms/1457397702663111831", distance: "~124 km", time: "2h20" }
   ];
+
+  async function seedHousesIfEmpty() {
+    const snap = await getDocs(collection(db, 'houses'));
+    if (snap.empty) {
+      for (const h of DEFAULT_HOUSES) {
+        const { id, ...data } = h;
+        await setDoc(doc(db, 'houses', id), data);
+      }
+    }
+  }
+
+  const FOOD_PER_PERSON = 1080;
+
 
   // ID local pra saber se ESTE navegador já votou (e em qual casa)
   function getDeviceId() {
@@ -799,40 +901,64 @@
   }
   const deviceId = getDeviceId();
 
+  function parsePrice(raw) {
+    if (!raw) return null;
+    const n = parseFloat(String(raw).replace(/\./g, '').replace(',', '.'));
+    return isNaN(n) ? null : n;
+  }
+  function formatPrice(n) {
+    return n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  }
+
   const voterNameInput = document.getElementById('voterName');
   voterNameInput.value = localStorage.getItem('reveillon_voter_name') || '';
   voterNameInput.addEventListener('input', () => {
     localStorage.setItem('reveillon_voter_name', voterNameInput.value);
   });
 
-  let allVotes = {}; // deviceId -> houseId
+  let allVotes = {}; // deviceId -> { house, name }
   const voteListEl = document.getElementById('voteList');
 
   function renderVotes() {
     const counts = {};
-    HOUSES.forEach(h => counts[h.id] = 0);
-    Object.values(allVotes).forEach(houseId => {
-      if (counts[houseId] !== undefined) counts[houseId]++;
+    const voterNames = {};
+    HOUSES.forEach(h => { counts[h.id] = 0; voterNames[h.id] = []; });
+    Object.values(allVotes).forEach(v => {
+      if (counts[v.house] !== undefined) {
+        counts[v.house]++;
+        voterNames[v.house].push(v.name);
+      }
     });
     const totalVotes = Object.keys(allVotes).length;
-    const myVote = allVotes[deviceId];
+    const myVote = allVotes[deviceId]?.house;
 
     voteListEl.innerHTML = HOUSES.map(h => {
       const count = counts[h.id];
       const pct = totalVotes > 0 ? Math.round((count / totalVotes) * 100) : 0;
       const isMine = myVote === h.id;
+      const names = voterNames[h.id];
       return `
         <div class="vote-card">
           <div style="flex:1; min-width:0;">
             <div class="vc-name">${h.name}</div>
             <div class="vc-place">${h.place}</div>
+            ${(h.distance || h.time) ? `
+              <div class="vc-meta">
+                ${h.distance ? `<span>${h.distance}</span>` : ''}
+                ${h.time ? `<span>${h.time}</span>` : ''}
+              </div>
+            ` : ''}
             <div class="vote-bar-wrap"><div class="vote-bar" style="width:${pct}%"></div></div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;">
+              <button class="vote-btn ${isMine ? 'voted' : ''}" data-house="${h.id}">
+                ${isMine ? '✕ Remover voto' : 'Votar'}
+              </button>
+              <a class="vote-link" href="${h.url}" target="_blank" rel="noopener">Ver no Airbnb ↗</a>
+            </div>
+            ${names.length > 0 ? `<div class="vc-voters">${names.join(', ')}</div>` : ''}
           </div>
           <div class="vote-right">
             <span class="vote-count">${count}</span>
-            <button class="vote-btn ${isMine ? 'voted' : ''}" data-house="${h.id}">
-              ${isMine ? '✓ Votado' : 'Votar'}
-            </button>
           </div>
         </div>
       `;
@@ -850,6 +976,12 @@
       voterNameInput.focus();
       return;
     }
+    const myCurrentVote = allVotes[deviceId]?.house;
+    if (myCurrentVote === houseId) {
+      // clicou de novo na mesma casa -> remove o voto
+      await deleteDoc(doc(db, 'votes', deviceId));
+      return;
+    }
     await setDoc(doc(db, 'votes', deviceId), {
       house: houseId,
       name: name,
@@ -859,35 +991,221 @@
 
   onSnapshot(collection(db, 'votes'), (snap) => {
     allVotes = {};
-    snap.forEach(d => { allVotes[d.id] = d.data().house; });
+    snap.forEach(d => { allVotes[d.id] = d.data(); });
     renderVotes();
+    updateWinnerBadges();
+    updateRateio();
   });
 
   renderVotes();
 
   // ============================================================
+  // CASAS (Firestore) -> alimenta tabela resumo, votação, cards e rateio
+  // ============================================================
+  function updateTicketCards() {
+    HOUSES.forEach(h => {
+      const ticket = document.querySelector(`.ticket[data-house="${h.id}"]`);
+      if (!ticket) return;
+      const priceEl = ticket.querySelector('[data-field="price"]');
+      const totalEl = ticket.querySelector('[data-field="total"]');
+      const distEl = ticket.querySelector('[data-field="distance"]');
+      const timeEl = ticket.querySelector('[data-field="time"]');
+      if (priceEl) priceEl.textContent = 'R$ ' + Math.round(h.total / 10);
+      if (totalEl) totalEl.textContent = 'total R$ ' + h.total.toLocaleString('pt-BR');
+      if (distEl && h.distance) distEl.textContent = h.distance;
+      if (timeEl && h.time) timeEl.textContent = h.time;
+    });
+  }
+
+  function renderSummaryTable() {
+    const tbody = document.getElementById('summaryTableBody');
+    if (!tbody) return;
+    const sorted = [...HOUSES].sort((a, b) => a.total - b.total);
+    tbody.innerHTML = sorted.map(h => `
+      <tr>
+        <td class="name">${h.name}</td>
+        <td>${h.place}</td>
+        <td>${h.distance || '—'}</td>
+        <td>${h.time || '—'}</td>
+        <td class="total">R$ ${Math.round(h.total / 10)}</td>
+      </tr>
+    `).join('');
+  }
+
+  onSnapshot(collection(db, 'houses'), (snap) => {
+    if (snap.empty) return; // ainda não semeado, seedHousesIfEmpty vai disparar de novo
+    HOUSES = [];
+    snap.forEach(d => HOUSES.push({ id: d.id, ...d.data() }));
+    HOUSES.sort((a, b) => a.total - b.total);
+    renderVotes();
+    updateWinnerBadges();
+    updateRateio();
+    renderSummaryTable();
+    updateTicketCards();
+  });
+
+  seedHousesIfEmpty();
+
+  // ============================================================
+  // CONFIG DA VIAGEM (Período, Grupo, Origem)
+  // Editável no Firebase Console -> Firestore -> coleção "config" -> doc "trip"
+  // ============================================================
+  const DEFAULT_TRIP = {
+    period: "30/12 a 03/01",
+    group: "10 pessoas",
+    origin: "Belo Horizonte"
+  };
+
+  async function seedTripIfEmpty() {
+    const snap = await getDoc(doc(db, 'config', 'trip'));
+    if (!snap.exists()) {
+      await setDoc(doc(db, 'config', 'trip'), DEFAULT_TRIP);
+    }
+  }
+
+  let tripGroupDefault = "10 pessoas";
+
+  onSnapshot(doc(db, 'config', 'trip'), (snap) => {
+    if (!snap.exists()) return; // ainda não semeado
+    const t = snap.data();
+    if (t.period) document.getElementById('tripPeriod').textContent = t.period;
+    if (t.group) { tripGroupDefault = t.group; updateTripGroupDisplay(); }
+    if (t.origin) document.getElementById('tripOrigin').textContent = t.origin;
+  });
+
+  seedTripIfEmpty();
+
+  function updateTripGroupDisplay() {
+    const count = Object.keys(allConfirmations).length;
+    const el = document.getElementById('tripGroup');
+    if (!el) return;
+    el.textContent = `${count} confirmado${count !== 1 ? 's' : ''}`;
+  }
+
+  // ============================================================
+  // CONFIRMAÇÃO DE PRESENÇA
+  // ============================================================
+  const confirmBtn = document.getElementById('confirmBtn');
+  const confirmedListEl = document.getElementById('confirmedList');
+  let allConfirmations = {}; // deviceId -> { name }
+
+  confirmBtn.addEventListener('click', async () => {
+    const name = voterNameInput.value.trim();
+    if (!name) {
+      alert('Digite seu nome antes de confirmar!');
+      voterNameInput.focus();
+      return;
+    }
+    if (allConfirmations[deviceId]) {
+      await deleteDoc(doc(db, 'confirmations', deviceId));
+    } else {
+      await setDoc(doc(db, 'confirmations', deviceId), { name, confirmedAt: serverTimestamp() });
+    }
+  });
+
+  function renderConfirmations() {
+    const names = Object.values(allConfirmations).map(v => v.name);
+    const isConfirmed = !!allConfirmations[deviceId];
+    confirmBtn.textContent = isConfirmed ? '✕ Cancelar presença' : 'Confirmar presença';
+    confirmBtn.classList.toggle('voted', isConfirmed);
+    confirmedListEl.innerHTML = names.length > 0
+      ? `<strong style="color:var(--gold-soft)">${names.length} confirmado${names.length > 1 ? 's' : ''}:</strong> ${names.join(', ')}`
+      : 'Ninguém confirmou ainda.';
+  }
+
+  onSnapshot(collection(db, 'confirmations'), (snap) => {
+    allConfirmations = {};
+    snap.forEach(d => { allConfirmations[d.id] = d.data(); });
+    renderConfirmations();
+    updateRateio();
+    updateTripGroupDisplay();
+  });
+
+  // ============================================================
+  // BADGE DE CASA MAIS VOTADA (na aba Comparativo)
+  // ============================================================
+  function getWinner() {
+    const counts = {};
+    HOUSES.forEach(h => counts[h.id] = 0);
+    Object.values(allVotes).forEach(v => {
+      if (counts[v.house] !== undefined) counts[v.house]++;
+    });
+    let winnerId = null, max = 0;
+    HOUSES.forEach(h => { if (counts[h.id] > max) { max = counts[h.id]; winnerId = h.id; } });
+    return { winnerId, max };
+  }
+
+  function updateWinnerBadges() {
+    const { winnerId, max } = getWinner();
+    document.querySelectorAll('.ticket').forEach(t => {
+      const badge = t.querySelector('.t-tag.winner');
+      if (badge) badge.style.display = (max > 0 && t.dataset.house === winnerId) ? 'inline-block' : 'none';
+    });
+  }
+
+  // ============================================================
+  // RATEIO AUTOMÁTICO
+  // ============================================================
+  const rateioBoxEl = document.getElementById('rateioBox');
+
+  function updateRateio() {
+    const { winnerId, max } = getWinner();
+    if (!winnerId || max === 0) {
+      rateioBoxEl.innerHTML = `<p style="color:var(--slate); font-size:14px;">Aguardando votos pra calcular o rateio.</p>`;
+      return;
+    }
+    const house = HOUSES.find(h => h.id === winnerId);
+    const confirmedCount = Object.keys(allConfirmations).length;
+    const people = confirmedCount > 0 ? confirmedCount : 10;
+    const cars = Math.ceil(people / 4);
+    const roadTotal = house.road != null ? house.road * cars : null;
+    const hospedagemPerPerson = house.total / people;
+    const roadPerPerson = roadTotal != null ? roadTotal / people : null;
+
+    rateioBoxEl.innerHTML = `
+      <div class="rt">Casa mais votada: ${house.name} (${house.place})</div>
+      <p style="margin-bottom:10px; font-size:14px; color:var(--cream);">Calculado para <strong style="color:var(--gold-soft)">${people}</strong> pessoa${people !== 1 ? 's' : ''}${confirmedCount === 0 ? ' — ninguém confirmou ainda, usando 10 como padrão' : ' confirmadas'}.</p>
+      <div style="font-family:'JetBrains Mono', monospace; font-size:13px; line-height:2; color:var(--cream);">
+        Hospedagem: ${formatPrice(hospedagemPerPerson)}/pessoa<br>
+        Estrada: ${roadPerPerson != null ? formatPrice(roadPerPerson) + '/pessoa (' + cars + ' carro' + (cars > 1 ? 's' : '') + ')' : 'a calcular'}<br>
+        Comida e bebida: ${formatPrice(FOOD_PER_PERSON)}/pessoa<br>
+        <span style="color:var(--gold-soft); font-weight:700; font-size:16px;">Total: ${formatPrice(hospedagemPerPerson + (roadPerPerson || 0) + FOOD_PER_PERSON)}/pessoa</span>
+      </div>
+    `;
+  }
+
+
+  // ============================================================
   // LISTA DE COMPRAS
   // ============================================================
   const shopInput = document.getElementById('shopInput');
+  const shopPriceInput = document.getElementById('shopPriceInput');
   const shopAddBtn = document.getElementById('shopAddBtn');
   const shopListEl = document.getElementById('shopList');
+  const shopTotalEl = document.getElementById('shopTotal');
+
 
   async function addShopItem() {
     const text = shopInput.value.trim();
     if (!text) return;
+    const price = parsePrice(shopPriceInput.value.trim());
     const name = localStorage.getItem('reveillon_voter_name') || 'Alguém';
     const id = 'item_' + Date.now() + '_' + Math.random().toString(36).slice(2);
     await setDoc(doc(db, 'shopping', id), {
-      text, done: false, addedBy: name, createdAt: serverTimestamp()
+      text, price: price, done: false, addedBy: name, createdAt: serverTimestamp()
     });
     shopInput.value = '';
+    shopPriceInput.value = '';
+    shopInput.focus();
   }
   shopAddBtn.addEventListener('click', addShopItem);
   shopInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') addShopItem(); });
+  shopPriceInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') addShopItem(); });
 
   function renderShopping(items) {
     if (items.length === 0) {
       shopListEl.innerHTML = '<div class="empty-state">Lista vazia. Adicione o primeiro item acima!</div>';
+      shopTotalEl.innerHTML = '';
       return;
     }
     shopListEl.innerHTML = items.map(it => `
@@ -897,9 +1215,16 @@
           <div class="shop-text ${it.done ? 'done' : ''}">${it.text}</div>
           <div class="shop-by">add. por ${it.addedBy || '—'}</div>
         </div>
+        ${it.price != null ? `<div style="font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--gold-soft); flex-shrink:0;">${formatPrice(it.price)}</div>` : ''}
         <button class="shop-del" data-id="${it.id}">✕</button>
       </div>
     `).join('');
+
+    const total = items.reduce((sum, it) => sum + (it.price || 0), 0);
+    const totalDone = items.filter(it => it.done).reduce((sum, it) => sum + (it.price || 0), 0);
+    shopTotalEl.innerHTML = total > 0
+      ? `Total da lista: <strong style="color:var(--gold-soft)">${formatPrice(total)}</strong> · já comprado: <strong style="color:var(--sage)">${formatPrice(totalDone)}</strong>`
+      : '';
 
     shopListEl.querySelectorAll('.shop-check').forEach(btn => {
       btn.addEventListener('click', async () => {
