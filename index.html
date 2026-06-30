@@ -392,7 +392,7 @@
   .voter-input:focus{outline:none; border-color:var(--gold);}
 
   /* ---------- SHOPPING LIST ---------- */
-  .shop-add{display:flex; gap:8px; margin-bottom:20px;}
+  .shop-add{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;}
   .shop-add input{
     flex:1;
     background:var(--night-2);
@@ -468,6 +468,7 @@
     }
     .t-stub::before, .t-stub::after{display:none;}
     .t-stub .price{font-size:19px;}
+    .shop-add button{flex:1 1 100%; padding:12px 20px;}
   }
 </style>
 </head>
