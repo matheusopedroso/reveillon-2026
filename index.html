@@ -214,13 +214,24 @@
   .t-stub .total{font-size:10.5px; color:var(--slate); margin-top:6px;}
 
   /* ---------- ROAD COST TABLE ---------- */
-  .road-table{
-    width:100%;
-    border-collapse:collapse;
-    font-size:13px;
+  .table-scroll{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
     border:1px solid var(--line);
     border-radius:14px;
+  }
+  .road-table{
+    width:100%;
+    min-width:560px;
+    border-collapse:collapse;
+    font-size:13px;
+    table-layout:auto;
+  }
+  .road-table th, .road-table td{
+    white-space:nowrap;
     overflow:hidden;
+    text-overflow:ellipsis;
+    max-width:160px;
   }
   .road-table thead th{
     background:rgba(243,234,216,0.05);
@@ -244,7 +255,10 @@
   .road-table td.name{font-family:'Inter', sans-serif; font-size:13.5px;}
   .road-table tbody tr:last-child td{border-bottom:none;}
   .road-table td.total{color:var(--gold-soft); font-weight:700;}
-  .table-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+
+  @media (max-width:480px){
+    .road-table{min-width:480px; font-size:12px;}
+  }
 
   /* ---------- RECOMMENDATIONS ---------- */
   .recs{display:flex; flex-direction:column; gap:14px;}
